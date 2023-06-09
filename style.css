@@ -137,23 +137,43 @@ body {
     justify-content: center;
     align-items: center;
 }
+h1 {
+    font-size: 40px;
+    text-align: center;
+}
 
 main {
-    background: green;
     width: clamp(300px, 70vw, 600px);
-    height: 70vh;
+    height: min-content;
     display: flex;
     flex-direction: column;
+    gap: 30px;
 }
 
 .container {
+    --linewidth: 6px;
     width: clamp(300px, 70vw, 500px);
     height: clamp(300px, 70vw, 500px);
-    background: blue;
+    background: black;
     align-self: center;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    gap: var(--linewidth);
+    box-sizing: border-box;
 }
 
 .scoreBoard {
     background: orange;
     height: 75px;
+}
+
+.box {
+    flex-grow: 1;
+    height: 100%;
+    background: white;
+    padding: 0px;
+    box-sizing: border-box;
+    overflow: hidden;
+    justify-content: center;
+    align-content: center;
 }
