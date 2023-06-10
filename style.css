@@ -131,23 +131,27 @@ table {
 /* Meyer's Reset End */
 
 body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
+    background: #eef0eb;
     align-items: center;
 }
 h1 {
-    font-size: 40px;
+    font-size: 50px;
     text-align: center;
 }
 
 main {
+    color: #153243;
     width: clamp(300px, 70vw, 600px);
     height: min-content;
     display: flex;
     flex-direction: column;
     gap: 30px;
+    align-items: center;
 }
 
 .container {
@@ -160,11 +164,19 @@ main {
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
     gap: var(--linewidth);
     box-sizing: border-box;
+    background: #b4b8ab;
+    border: 5px solid #b4b8ab;
 }
 
 .scoreBoard {
-    background: orange;
-    height: 75px;
+    font-size: 20px;
+    height: 50px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    background: #f4f9e9;
+    border: 2px solid #b4b8ab;
+    border-radius: 25px;
+    width: 90%;
 }
 
 .box {
@@ -176,4 +188,15 @@ main {
     overflow: hidden;
     justify-content: center;
     align-content: center;
+}
+
+.scoreBoard > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.score {
+    border-left: 2px solid #b4b8ab;
+    border-right: 2px solid #b4b8ab;
 }
