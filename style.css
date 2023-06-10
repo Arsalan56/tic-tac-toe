@@ -155,7 +155,7 @@ main {
 }
 
 .container {
-    --linewidth: 6px;
+    --linewidth: 4.5px;
     width: clamp(300px, 70vw, 500px);
     height: clamp(300px, 70vw, 500px);
     background: black;
@@ -165,7 +165,7 @@ main {
     gap: var(--linewidth);
     box-sizing: border-box;
     background: #b4b8ab;
-    border: 5px solid #b4b8ab;
+    border: var(--linewidth) solid #b4b8ab;
 }
 
 .scoreBoard {
@@ -182,7 +182,7 @@ main {
 .box {
     flex-grow: 1;
     height: 100%;
-    background: white;
+    background: #f4f9e9;
     padding: 0px;
     box-sizing: border-box;
     overflow: hidden;
@@ -199,4 +199,9 @@ main {
 .score {
     border-left: 2px solid #b4b8ab;
     border-right: 2px solid #b4b8ab;
+}
+
+.scoreBoard > .turn {
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
 }
