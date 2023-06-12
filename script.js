@@ -1,7 +1,4 @@
-// true = X, false = O
-let turn = true;
 // eslint-disable-next-line prefer-const
-
 // Player factory function
 const Player = (icon) => {
     const player = document.querySelector(`.scoreBoard > .player-${icon}`);
@@ -15,12 +12,19 @@ const Player = (icon) => {
     return { icon, addWin, toggle };
 };
 
-const playerX = Player('x');
-const playerO = Player('o');
-
 const Game = ((p1, p2) => {
+    // true = X, false = O
+    let turn = true;
+
     const gameActive = true;
     const gameboard = [null, null, null, null, null, null, null, null, null];
+
+    // Add icon to list
+    const Add = (box, icon) => {
+        const index = box.getAttribute('data');
+        gameboard[index] = icon;
+    };
+
     const boxes = document.querySelectorAll('.box');
     boxes.forEach((box) =>
         box.addEventListener('click', () => {
@@ -28,11 +32,11 @@ const Game = ((p1, p2) => {
             if (!activeImg.getAttribute('src') && gameActive) {
                 if (turn) {
                     activeImg.setAttribute('src', 'svg-icons/x-icon.svg');
-                    console.log(p1.classList);
                     turn = false;
+                    Add(box, 'x');
                 } else {
                     activeImg.setAttribute('src', 'svg-icons/o-icon.svg');
-
+                    Add(box, 'o');
                     turn = true;
                 }
                 p1.toggle();
@@ -40,12 +44,7 @@ const Game = ((p1, p2) => {
             }
         })
     );
-    // const Add = (index, icon) => {
-    //     gameboard[index] = icon;
-    // };
 
     const checkWin = () => {};
-    // return { Add };
-})(playerX, playerO);
-
-// Game;
+    return { Add };
+})(Player('x'), Player('o'));
