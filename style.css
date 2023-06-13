@@ -219,11 +219,11 @@ main {
     grid-column: 1 / -1;
     align-self: center;
     justify-self: center;
-    font-size: 24px;
+    font-size: 28px;
 }
 
 .title:first-of-type {
-    font-size: 36px;
+    font-size: 48px;
     align-self: baseline;
 }
 
@@ -240,16 +240,22 @@ main {
 }
 
 .selectMode > button:active {
-    transition: 0.1s;
+    transition: 0.3s;
     transform: scale(0.9);
 }
 
 .selectMode > button:hover {
     background: #153243;
     color: #cdcfca;
-    transition: 0.3s ease-in-out;
 }
 
 main {
     visibility: hidden;
+    transform: scale(0.1);
+}
+
+.main-animation {
+    visibility: visible;
+    transition: 0.3s;
+    transform: scale(1);
 }

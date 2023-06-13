@@ -9,13 +9,15 @@ const Player = (icon) => {
     const toggle = () => {
         player.classList.toggle('turn');
     };
-    return { icon, addWin, toggle };
+    const start = () => {
+        player.classList.add('turn');
+    };
+    return { icon, addWin, toggle, start };
 };
 
 const Game = ((p1, p2) => {
     // true = X, false = O
     let turn = true;
-
     const gameActive = true;
     const gameboard = [null, null, null, null, null, null, null, null, null];
 
@@ -24,6 +26,24 @@ const Game = ((p1, p2) => {
         const index = box.getAttribute('data');
         gameboard[index] = icon;
     };
+
+    // Change to game screen
+    const buttons = document.querySelectorAll('.selectMode > button');
+    buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const selectMode = document.querySelector('.selectMode');
+            const gameScreen = document.querySelector('main');
+
+            selectMode.style.visibility = 'hidden';
+            gameScreen.classList.add('main-animation');
+
+            p1.start();
+        });
+    });
+
+    buttons[1].addEventListener('click', {
+        // Do bot stuff
+    });
 
     const boxes = document.querySelectorAll('.box');
     boxes.forEach((box) =>
@@ -44,12 +64,6 @@ const Game = ((p1, p2) => {
             }
         })
     );
-
     // const checkWin = () => {};
     return { Add };
 })(Player('x'), Player('o'));
-
-const buttons = document.querySelectorAll('.selectMode > button');
-buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {});
-});
