@@ -1,4 +1,5 @@
-// eslint-disable-next-line prefer-const
+// true = X, false = O
+let turn = true;
 // Player factory function
 const Player = (icon) => {
     const player = document.querySelector(`.scoreBoard > .player-${icon}`);
@@ -10,16 +11,28 @@ const Player = (icon) => {
         player.classList.toggle('turn');
     };
     const start = () => {
-        player.classList.add('turn');
+        if (!player.classList.contains('turn')) {
+            player.classList.toggle('turn');
+        }
     };
-    return { icon, addWin, toggle, start };
+    const reset = () => {
+        player.classList.remove('turn');
+        score.textContent = 0;
+        turn = true;
+    };
+    const scoreChange = (robot) => {
+        // eslint-disable-next-line no-unused-expressions
+        robot
+            ? (player.textContent = 'Computer')
+            : (player.textContent = 'Player O');
+    };
+    return { icon, addWin, toggle, start, scoreChange, reset };
 };
 
 const Game = ((p1, p2) => {
-    // true = X, false = O
-    let turn = true;
     const gameActive = true;
-    const gameboard = [null, null, null, null, null, null, null, null, null];
+    let gameboard = [null, null, null, null, null, null, null, null, null];
+    const boxes = document.querySelectorAll('.box');
 
     // Add icon to list
     const Add = (box, icon) => {
@@ -27,25 +40,35 @@ const Game = ((p1, p2) => {
         gameboard[index] = icon;
     };
 
+    const resetBoard = () => {
+        gameboard = [null, null, null, null, null, null, null, null, null];
+        boxes.forEach((item) => {
+            const img = item.firstElementChild;
+            img.setAttribute('src', '');
+        });
+        p1.reset();
+        p2.reset();
+
+        p1.start();
+    };
+
+    const gameScreen = document.querySelector('main');
+    const selectMode = document.querySelector('.selectMode');
+
     // Change to game screen
     const buttons = document.querySelectorAll('.selectMode > button');
     buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
-            const selectMode = document.querySelector('.selectMode');
-            const gameScreen = document.querySelector('main');
-
             selectMode.style.visibility = 'hidden';
             gameScreen.classList.add('main-animation');
 
             p1.start();
+
+            // eslint-disable-next-line no-unused-expressions
+            btn === buttons[1] ? p2.scoreChange(true) : p2.scoreChange(false);
         });
     });
 
-    buttons[1].addEventListener('click', {
-        // Do bot stuff
-    });
-
-    const boxes = document.querySelectorAll('.box');
     boxes.forEach((box) =>
         box.addEventListener('click', () => {
             const activeImg = box.firstElementChild;
@@ -64,6 +87,18 @@ const Game = ((p1, p2) => {
             }
         })
     );
-    // const checkWin = () => {};
-    return { Add };
+
+    const restart = document.querySelector(
+        'main > div:last-of-type > button:first-of-type'
+    );
+    const back = document.querySelector(
+        'main > div:last-of-type > button:last-of-type'
+    );
+
+    restart.addEventListener('click', resetBoard);
+    back.addEventListener('click', () => {
+        gameScreen.classList.remove('main-animation');
+        selectMode.style.visibility = 'visible';
+        resetBoard();
+    });
 })(Player('x'), Player('o'));

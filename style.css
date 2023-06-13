@@ -153,6 +153,14 @@ main {
     flex-direction: column;
     gap: 30px;
     align-items: center;
+    visibility: hidden;
+    transform: scale(0.1);
+}
+
+.main-animation {
+    visibility: visible;
+    transition: 0.3s;
+    transform: scale(1);
 }
 
 .container {
@@ -249,13 +257,17 @@ main {
     color: #cdcfca;
 }
 
-main {
-    visibility: hidden;
-    transform: scale(0.1);
+main > div:last-of-type > button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #153243;
+    width: 100px;
+    text-decoration: underline;
 }
 
-.main-animation {
-    visibility: visible;
-    transition: 0.3s;
-    transform: scale(1);
+main > div:last-of-type {
+    display: flex;
+    gap: 100px;
+    margin-top: -10px;
 }
