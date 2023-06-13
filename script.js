@@ -45,6 +45,11 @@ const Game = ((p1, p2) => {
         })
     );
 
-    const checkWin = () => {};
+    // const checkWin = () => {};
     return { Add };
 })(Player('x'), Player('o'));
+
+const buttons = document.querySelectorAll('.selectMode > button');
+buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {});
+});
