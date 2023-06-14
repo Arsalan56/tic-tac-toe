@@ -1,5 +1,6 @@
 // true = X, false = O
 let turn = true;
+
 // Player factory function
 const Player = (icon) => {
     const player = document.querySelector(`.scoreBoard > .player-${icon}`);
@@ -31,6 +32,7 @@ const Player = (icon) => {
 
 const Game = ((p1, p2) => {
     let gameActive = true;
+    let bot = false;
     let gameboard = [null, null, null, null, null, null, null, null, null];
     const boxes = document.querySelectorAll('.box');
 
@@ -57,7 +59,6 @@ const Game = ((p1, p2) => {
 
         players.forEach((pl) => {
             const sign = pl.icon;
-
             // Check for a win
             if (
                 // horizontal
@@ -93,6 +94,7 @@ const Game = ((p1, p2) => {
             }
         });
     };
+
     const gameScreen = document.querySelector('main');
     const selectMode = document.querySelector('.selectMode');
 
@@ -105,8 +107,12 @@ const Game = ((p1, p2) => {
 
             p1.start();
 
-            // eslint-disable-next-line no-unused-expressions
-            btn === buttons[1] ? p2.scoreChange(true) : p2.scoreChange(false);
+            if (btn === buttons[1]) {
+                p2.scoreChange(true);
+                p2.scoreChange(false);
+
+                bot = true;
+            }
         });
     });
 
@@ -116,16 +122,45 @@ const Game = ((p1, p2) => {
             if (!activeImg.getAttribute('src') && gameActive) {
                 if (turn) {
                     activeImg.setAttribute('src', 'svg-icons/x-icon.svg');
-                    turn = false;
+                    if (!bot) {
+                        turn = false;
+                    }
                     Add(box, p1.icon);
-                } else {
+                    checkWin();
+
+                    if (bot) {
+                        const empty =
+                            document.querySelectorAll('.box > img[src=""]');
+                        if (empty.length !== 0 && gameActive) {
+                            // const allbox = document.querySelectorAll('.box');
+                            const index = Math.floor(
+                                Math.random() * empty.length
+                            );
+                            const selected = empty[index];
+
+                            setTimeout(() => {
+                                selected.setAttribute(
+                                    'src',
+                                    'svg-icons/o-icon.svg'
+                                );
+                            }, 300);
+                            p1.toggle();
+                            p2.toggle();
+                            Add(selected.parentNode, 'o');
+                            checkWin();
+                        }
+                    }
+                } else if (!bot) {
                     activeImg.setAttribute('src', 'svg-icons/o-icon.svg');
                     Add(box, p2.icon);
                     turn = true;
+                    checkWin();
                 }
+
+                // bot = true;
+
                 p1.toggle();
                 p2.toggle();
-                checkWin();
             }
         })
     );
@@ -137,10 +172,14 @@ const Game = ((p1, p2) => {
         'main > div:last-of-type > button:last-of-type'
     );
 
-    restart.addEventListener('click', resetBoard);
+    restart.addEventListener('click', () => {
+        resetBoard();
+        gameActive = true;
+    });
     back.addEventListener('click', () => {
         gameScreen.classList.remove('main-animation');
         selectMode.style.visibility = 'visible';
         resetBoard();
+        gameActive = true;
     });
 })(Player('x'), Player('o'));

@@ -271,3 +271,14 @@ main > div:last-of-type {
     gap: 100px;
     margin-top: -10px;
 }
+
+.endScreen {
+    position: absolute;
+    height: 200px;
+    width: 400px;
+    display: grid;
+    background: green;
+    grid-template: 1fr 1fr 1fr / 1fr;
+    color: var(--color);
+    justify-content: center;
+}
