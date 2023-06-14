@@ -30,7 +30,7 @@ const Player = (icon) => {
 };
 
 const Game = ((p1, p2) => {
-    const gameActive = true;
+    let gameActive = true;
     let gameboard = [null, null, null, null, null, null, null, null, null];
     const boxes = document.querySelectorAll('.box');
 
@@ -52,6 +52,47 @@ const Game = ((p1, p2) => {
         p1.start();
     };
 
+    const checkWin = () => {
+        const players = [p1, p2];
+
+        players.forEach((pl) => {
+            const sign = pl.icon;
+
+            // Check for a win
+            if (
+                // horizontal
+                (gameboard[0] === sign &&
+                    gameboard[1] === sign &&
+                    gameboard[2] === sign) ||
+                (gameboard[3] === sign &&
+                    gameboard[4] === sign &&
+                    gameboard[5] === sign) ||
+                (gameboard[6] === sign &&
+                    gameboard[7] === sign &&
+                    gameboard[8] === sign) ||
+                // vertical
+                (gameboard[0] === sign &&
+                    gameboard[3] === sign &&
+                    gameboard[6] === sign) ||
+                (gameboard[1] === sign &&
+                    gameboard[4] === sign &&
+                    gameboard[7] === sign) ||
+                (gameboard[2] === sign &&
+                    gameboard[5] === sign &&
+                    gameboard[8] === sign) ||
+                // diagonal
+                (gameboard[0] === sign &&
+                    gameboard[4] === sign &&
+                    gameboard[8] === sign) ||
+                (gameboard[2] === sign &&
+                    gameboard[4] === sign &&
+                    gameboard[6] === sign)
+            ) {
+                pl.addWin();
+                gameActive = false;
+            }
+        });
+    };
     const gameScreen = document.querySelector('main');
     const selectMode = document.querySelector('.selectMode');
 
@@ -76,14 +117,15 @@ const Game = ((p1, p2) => {
                 if (turn) {
                     activeImg.setAttribute('src', 'svg-icons/x-icon.svg');
                     turn = false;
-                    Add(box, 'x');
+                    Add(box, p1.icon);
                 } else {
                     activeImg.setAttribute('src', 'svg-icons/o-icon.svg');
-                    Add(box, 'o');
+                    Add(box, p2.icon);
                     turn = true;
                 }
                 p1.toggle();
                 p2.toggle();
+                checkWin();
             }
         })
     );
