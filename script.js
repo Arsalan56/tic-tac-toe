@@ -127,7 +127,7 @@ const Game = ((p1, p2) => {
     const selectMode = document.querySelector('.selectMode');
 
     // Change to game screen
-    const buttons = document.querySelectorAll('.selectMode > button');
+    const buttons = document.querySelectorAll('.selectMode button');
     buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
             selectMode.style.visibility = 'hidden';

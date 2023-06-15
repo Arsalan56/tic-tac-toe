@@ -220,24 +220,29 @@ main {
     height: 200px;
     width: 400px;
     display: grid;
-    grid-template: 1fr 2fr 2fr/ 1fr 1fr;
+    grid-template: 1fr 2fr 2fr/ 1fr;
     color: var(--color);
     background: #eef0eb;
+    /* border: 2px solid black; */
 }
 
 .title {
-    grid-column: 1 / -1;
     align-self: center;
     justify-self: center;
     font-size: 28px;
 }
 
+.btns {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
 .title:first-of-type {
     font-size: 48px;
     align-self: baseline;
 }
 
-.selectMode > button {
+.selectMode button {
     font-size: 16px;
     background: var(--color);
     background: #cdcfca;
@@ -249,12 +254,12 @@ main {
     border-radius: 999px;
 }
 
-.selectMode > button:active {
-    transition: 0.3s;
+.selectMode button:active {
+    transition: 0.3s ease-in-out;
     transform: scale(0.9);
 }
 
-.selectMode > button:hover {
+.selectMode button:hover {
     background: #153243;
     color: #cdcfca;
 }
@@ -281,7 +286,7 @@ main > div:last-of-type {
     grid-template: 1fr 1fr 1fr / 1fr;
     color: var(--color);
     justify-content: center;
-    background: #cdcfca;
+    background: #e0e1df;
     border-radius: 16px;
     transform: scale(0.1);
 }
