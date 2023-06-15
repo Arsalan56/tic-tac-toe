@@ -325,3 +325,12 @@ main > div:last-of-type {
     transition: 0.25s;
     transform: scale(1);
 }
+
+img {
+    opacity: 0;
+    transition: 0.25s ease-in-out;
+}
+img[src='svg-icons/o-icon.svg'],
+img[src='svg-icons/x-icon.svg'] {
+    opacity: 1;
+}
