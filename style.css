@@ -155,6 +155,7 @@ main {
     align-items: center;
     visibility: hidden;
     transform: scale(0.1);
+    transition: 0s;
 }
 
 .main-animation {
@@ -221,6 +222,7 @@ main {
     display: grid;
     grid-template: 1fr 2fr 2fr/ 1fr 1fr;
     color: var(--color);
+    background: #eef0eb;
 }
 
 .title {
@@ -273,12 +275,53 @@ main > div:last-of-type {
 }
 
 .endScreen {
-    position: absolute;
     height: 200px;
     width: 400px;
     display: grid;
-    background: green;
     grid-template: 1fr 1fr 1fr / 1fr;
     color: var(--color);
     justify-content: center;
+    background: #a7a8a4;
+    border-radius: 16px;
+    transform: scale(0.1);
+}
+
+.endScreen > p:first-of-type {
+    font-size: 48px;
+}
+
+.endScreen > p {
+    justify-self: center;
+    align-self: center;
+}
+
+.endScreen > button {
+    width: 150px;
+    height: 50px;
+    justify-self: center;
+    background: #153243;
+    color: #cdcfca;
+    border-radius: 999px;
+    border: 0px;
+    font-size: 18px;
+}
+
+.cover {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    visibility: hidden;
+}
+
+.animate {
+    transition: 0.3s;
+    transform: scale(1.3);
+}
+
+.animate-2 {
+    transition: 0.25s;
+    transform: scale(1);
 }

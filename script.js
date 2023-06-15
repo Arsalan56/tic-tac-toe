@@ -91,6 +91,13 @@ const Game = ((p1, p2) => {
             ) {
                 pl.addWin();
                 gameActive = false;
+                const cover = document.querySelector('.cover');
+                const gameOver = document.querySelector('.endScreen');
+                cover.style.visibility = 'visible';
+                gameOver.classList.add('animate');
+                setTimeout(() => {
+                    gameOver.classList.add('animate-2');
+                }, 300);
             }
         });
     };
@@ -113,6 +120,7 @@ const Game = ((p1, p2) => {
 
                 bot = true;
             }
+            if (btn === buttons[0]) bot = false;
         });
     });
 
@@ -143,7 +151,7 @@ const Game = ((p1, p2) => {
                                     'src',
                                     'svg-icons/o-icon.svg'
                                 );
-                            }, 300);
+                            }, 150);
                             p1.toggle();
                             p2.toggle();
                             Add(selected.parentNode, 'o');
