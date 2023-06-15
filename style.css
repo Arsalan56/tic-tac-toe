@@ -281,7 +281,7 @@ main > div:last-of-type {
     grid-template: 1fr 1fr 1fr / 1fr;
     color: var(--color);
     justify-content: center;
-    background: #a7a8a4;
+    background: #cdcfca;
     border-radius: 16px;
     transform: scale(0.1);
 }

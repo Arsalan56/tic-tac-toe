@@ -5,6 +5,7 @@ let turn = true;
 const Player = (icon) => {
     const player = document.querySelector(`.scoreBoard > .player-${icon}`);
     const score = document.querySelector(`.${icon}-score`);
+    const name = player.textContent;
     const addWin = () => {
         score.textContent++;
     };
@@ -27,7 +28,7 @@ const Player = (icon) => {
             ? (player.textContent = 'Computer')
             : (player.textContent = 'Player O');
     };
-    return { icon, addWin, toggle, start, scoreChange, reset };
+    return { player, name, icon, addWin, toggle, start, scoreChange, reset };
 };
 
 const Game = ((p1, p2) => {
@@ -35,6 +36,8 @@ const Game = ((p1, p2) => {
     let bot = false;
     let gameboard = [null, null, null, null, null, null, null, null, null];
     const boxes = document.querySelectorAll('.box');
+    const winner = document.querySelector('.winner');
+    const cover = document.querySelector('.cover');
 
     // Add icon to list
     const Add = (box, icon) => {
@@ -59,6 +62,8 @@ const Game = ((p1, p2) => {
 
         players.forEach((pl) => {
             const sign = pl.icon;
+            const gameOver = document.querySelector('.endScreen');
+
             // Check for a win
             if (
                 // horizontal
@@ -91,15 +96,31 @@ const Game = ((p1, p2) => {
             ) {
                 pl.addWin();
                 gameActive = false;
-                const cover = document.querySelector('.cover');
-                const gameOver = document.querySelector('.endScreen');
                 cover.style.visibility = 'visible';
                 gameOver.classList.add('animate');
                 setTimeout(() => {
                     gameOver.classList.add('animate-2');
                 }, 300);
+                winner.textContent = `${pl.name} Won!`;
+            }
+            if (
+                !gameboard.includes(null) &&
+                !winner.textContent.includes('Won')
+            ) {
+                gameActive = false;
+                cover.style.visibility = 'visible';
+                gameOver.classList.add('animate');
+                setTimeout(() => {
+                    gameOver.classList.add('animate-2');
+                }, 300);
+                winner.textContent = 'It is a tie!';
             }
         });
+
+        if (cover.style.visibility === 'visible') {
+            p1.toggle();
+            p2.toggle();
+        }
     };
 
     const gameScreen = document.querySelector('main');
@@ -189,5 +210,25 @@ const Game = ((p1, p2) => {
         selectMode.style.visibility = 'visible';
         resetBoard();
         gameActive = true;
+    });
+
+    const again = document.querySelector('.endScreen > button');
+    again.addEventListener('click', () => {
+        cover.style.visibility = 'hidden';
+        gameActive = true;
+        // reset board
+        gameboard = [null, null, null, null, null, null, null, null, null];
+        boxes.forEach((item) => {
+            const img = item.firstElementChild;
+            img.setAttribute('src', '');
+        });
+
+        p1.player.classList.remove('turn');
+        p2.player.classList.remove('turn');
+        winner.parentNode.classList.remove('animate-2');
+        winner.parentNode.classList.remove('animate');
+        p1.start();
+        turn = true;
+        winner.textContent = '';
     });
 })(Player('x'), Player('o'));
