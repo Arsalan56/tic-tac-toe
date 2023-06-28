@@ -339,3 +339,16 @@ img[src='svg-icons/o-icon.svg'],
 img[src='svg-icons/x-icon.svg'] {
     opacity: 1;
 }
+
+*:hover {
+    cursor: default;
+}
+
+button:hover,
+.box:hover {
+    cursor: pointer;
+}
+
+img:hover {
+    cursor: default;
+}
